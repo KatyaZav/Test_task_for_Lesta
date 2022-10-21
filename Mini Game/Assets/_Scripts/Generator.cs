@@ -48,7 +48,26 @@ public class Generator : MonoBehaviour
                     Generate(green_one, i, j);
                     green--;
                 }
+                else
+                {
+                    if (blue > 0)
+                    {
+                        Generate(blue_one, i, j);
+                        blue--;
+                    }
+                    else if (zero>0)
+                    {
+                        zero--;
+                    }
+                    else
+                    {
+                        Generate(orange_one, i, j);
+                        orange--;
+                    }
+                }
             }
+
+
     }
 
     private void Generate(GameObject pref, int i, int j)

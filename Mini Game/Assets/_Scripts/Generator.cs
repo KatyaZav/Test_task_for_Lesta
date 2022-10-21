@@ -78,5 +78,6 @@ public class Generator : MonoBehaviour
                     leftTopMax.transform.position.y + 0.2f + ((rightBottom.transform.position.y - leftTopMax.transform.position.y) / 4 * i))),
                 Quaternion.identity);
 
+        obj[i, j] = pref;
     }
 }

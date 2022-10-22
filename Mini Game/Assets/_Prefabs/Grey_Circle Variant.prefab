@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 937169909024089952, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
       propertyPath: m_Name
-      value: Grey_Circle
+      value: Grey_Circle Variant
       objectReference: {fileID: 0}
     - target: {fileID: 937169909024089966, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
       propertyPath: m_RootOrder
@@ -66,6 +66,10 @@ PrefabInstance:
     - target: {fileID: 937169909024089967, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
       propertyPath: m_Color.r
       value: 0.17524031
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717908500381043157, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}

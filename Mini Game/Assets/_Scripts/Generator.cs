@@ -93,8 +93,8 @@ public class Generator : MonoBehaviour
 
     public bool CheckBorders(float x, float y)
     {
-        if (leftTopMax.transform.position.x <= x && x <= rightBottom.transform.position.x &&
-            rightBottom.transform.position.y <= y && y <= leftTopMax.transform.position.y)
+        if (leftTopMax.transform.position.x - 0.2f <= x && x <= 0.8f + rightBottom.transform.position.x &&
+            rightBottom.transform.position.y - 0.2f <= y && y <= 0.8f + leftTopMax.transform.position.y)
             return true;
 
         Debug.LogWarning("Circle out of borders!");
@@ -107,22 +107,13 @@ public class Generator : MonoBehaviour
         //var _x = x/(leftTopMax.transform.position.x + 0.2f +
         //     (rightBottom.transform.position.x - leftTopMax.transform.position.x)/4)-1;
 
-        var e = new Coordinate(0, 0, leftTopMax, rightBottom);
-        Instantiate(grey_one, new Vector3(e.X, e.Y, 0), Quaternion.identity);
+        var e = new Index(x, y, leftTopMax, rightBottom);
+        Debug.Log(e.X + " " + e.Y);
+
+        //Instantiate(grey_one, new Vector3(e.X, e.Y, 0), Quaternion.identity);
         //Debug.Log(x);
         return new int[] { 0, 1 };
-    }
-
-    /*public Coordinate IndexToPosition(int x, int y)
-    {
-        return new Coordinate { X=0, Y=0};
-    }
-
-    public Index PositionToIndex(float x, float y)
-    {
-        return new Index { X = 0, Y=0};
-    }*/
-
+    } 
 }
 
     public class Coordinate
@@ -146,5 +137,15 @@ public class Generator : MonoBehaviour
     {
         public int X;
         public int Y;
+
+        /// <summary>
+        /// Position to Index
+        /// </summary>
+        public Index(float x, float y, GameObject lt, GameObject rb)
+        {
+            Y = Mathf.Abs((int)((lt.transform.position.x - x)/((rb.transform.position.x - 0.5f - lt.transform.position.x) / 4)));
+            
+            X = Mathf.Abs((int)((lt.transform.position.y - y) / ((lt.transform.position.y - 1f - rb.transform.position.y) / 4)));
+        }
     }
 

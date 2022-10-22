@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8717908500381043157, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
 --- !u!1 &140734147
@@ -254,6 +258,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3425378711735833144, guid: 61edb927fb31ef7498858467b6ac2eef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6517877769730391171, guid: 61edb927fb31ef7498858467b6ac2eef, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -532,6 +540,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4001097160030468429, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4790567958578616310, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -580,8 +592,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Circle Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6494428399215608681, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6318203207604486098, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
+    - {fileID: 6494428399215608681, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
 --- !u!1 &1077880588
 GameObject:
@@ -907,6 +924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1602863252}
   - component: {fileID: 1602863251}
+  - component: {fileID: 1602863253}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -983,6 +1001,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1602863253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602863250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22eca670110d5914b9f0605286d7427f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938995875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1938995876
 MonoBehaviour:
   m_ObjectHideFlags: 0

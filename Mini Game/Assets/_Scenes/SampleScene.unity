@@ -619,6 +619,7 @@ MonoBehaviour:
   blue_one: {fileID: 4790567958578616312, guid: 9280ffe74164e254584ef9a761eb1d5e, type: 3}
   grey_one: {fileID: 1554299071780161236, guid: 964a6cff95d212d44ad221d322904a98, type: 3}
   orange_one: {fileID: 6517877769730391181, guid: 61edb927fb31ef7498858467b6ac2eef, type: 3}
+  nextStep: {fileID: 7652827525539222500, guid: 69ec5d576bbfd8943b6f1ed61ac4124f, type: 3}
 --- !u!4 &1077880590
 Transform:
   m_ObjectHideFlags: 0

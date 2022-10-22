@@ -101,9 +101,24 @@ public class Generator : MonoBehaviour
         return false;
     }
 
-    public static int[] FindCoordinate(float x, float y)
+    public int[] FindCoordinate(float x, float y)
     {
         Debug.Log("Find cord");
+        var _x = x/(leftTopMax.transform.position.x + 0.2f +
+            (rightBottom.transform.position.x - leftTopMax.transform.position.x)/4)-1;
+ 
+
+        Debug.Log(x);
         return new int[] {0, 1};                   
+    }
+
+    public int[] IndexToPosition(int x, int y)
+    {
+        return new int[2];
+    }
+
+    public int[] PositionToIndex(float x, float y)
+    {
+        return new int[2];
     }
 }

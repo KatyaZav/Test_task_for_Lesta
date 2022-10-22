@@ -12,10 +12,12 @@ public class Generator : MonoBehaviour
     [SerializeField] GameObject grey_one;
     [SerializeField] GameObject orange_one;
 
-    GameObject[,] obj = new GameObject[5,5];
+    [SerializeField] GameObject nextStep;
 
     private void Start()
     {
+        Drag.Draging += DragObj;
+
         var zero = 4;
         var green = 5;
         var orange = 5;
@@ -78,6 +80,30 @@ public class Generator : MonoBehaviour
                     leftTopMax.transform.position.y + 0.2f + ((rightBottom.transform.position.y - leftTopMax.transform.position.y) / 4 * i))),
                 Quaternion.identity);
 
-        obj[i, j] = pref;
+        Matrix.Create(i, j, pref);
+    }
+
+    private void DragObj(float x, float y)
+    {
+        if (CheckBorders(x, y))
+        {           
+            var mas = FindCoordinate(x, y);
+        }
+    }
+
+    public bool CheckBorders(float x, float y)
+    {
+        if (leftTopMax.transform.position.x <= x && x <= rightBottom.transform.position.x &&
+            rightBottom.transform.position.y <= y && y <= leftTopMax.transform.position.y)
+            return true;
+
+        Debug.LogWarning("Circle out of borders!");
+        return false;
+    }
+
+    public static int[] FindCoordinate(float x, float y)
+    {
+        Debug.Log("Find cord");
+        return new int[] {0, 1};                   
     }
 }

@@ -83,8 +83,27 @@ public class Generator : MonoBehaviour
     {
         if (CheckBorders(x, y))
         {
-            var mas = FindCoordinate(x, y);
+            DeleteSteps();
+
+            var e = new Index(x, y, leftTopMax, rightBottom);
+            var steps = Matrix.GenerateSteps(e.X, e.Y);
+
+            foreach(var step in steps)
+            {
+                var pos = new Coordinate(step.X, step.Y, leftTopMax, rightBottom);
+
+                Instantiate(nextStep, new Vector3(pos.X, pos.Y, 0), Quaternion.identity);
+                Debug.Log(step.ToString());
+            }
         }
+    }
+
+    private static void DeleteSteps()
+    {
+        var steps = GameObject.FindGameObjectsWithTag("Step");
+
+        foreach (var step in steps)
+            Destroy(step);
     }
 
     public bool CheckBorders(float x, float y)
@@ -96,11 +115,6 @@ public class Generator : MonoBehaviour
         Debug.LogWarning("Circle out of borders!");
         return false;
     }
-
-    public int[] FindCoordinate(float x, float y)
-    {
-        return new int[] { 0, 1 };
-    } 
 }
 
     public class Coordinate
@@ -118,6 +132,12 @@ public class Generator : MonoBehaviour
 
             //Debug.Log(X + " " + Y);
         }
+
+        public Coordinate(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 
     public class Index
@@ -133,6 +153,12 @@ public class Generator : MonoBehaviour
             Y = Mathf.Abs((int)((lt.transform.position.x - x)/((rb.transform.position.x - 0.5f - lt.transform.position.x) / 4)));
             
             X = Mathf.Abs((int)((lt.transform.position.y - y) / ((lt.transform.position.y - 1f - rb.transform.position.y) / 4)));
+        }
+
+        public Index(int x, int y)
+        {
+            X = x;
+            Y = y;
         }
     }
 

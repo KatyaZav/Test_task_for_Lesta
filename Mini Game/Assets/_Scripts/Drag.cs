@@ -9,7 +9,7 @@ public class Drag : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
+        //GetComponent<SpriteRenderer>().color = Color.red;
 
         var position = Input.mousePosition;
         position.z = Camera.main.nearClipPlane + 1;

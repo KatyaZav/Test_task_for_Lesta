@@ -24,9 +24,9 @@ public class Generator : MonoBehaviour
         var blue = 5;
 
 
-        for (var i=0; i<5; i++)
-            for (var j=0; j<5; j++)
-        {
+        for (var i = 0; i < 5; i++)
+            for (var j = 0; j < 5; j++)
+            {
                 if ((j == 1 && i == 0) || (j == 3 && i == 0) ||
                     (j == 1 && i == 2) || (j == 3 && i == 2) ||
                      (j == 1 && i == 4) || (j == 3 && i == 4))
@@ -57,7 +57,7 @@ public class Generator : MonoBehaviour
                         Generate(blue_one, i, j);
                         blue--;
                     }
-                    else if (zero>0)
+                    else if (zero > 0)
                     {
                         zero--;
                     }
@@ -74,7 +74,7 @@ public class Generator : MonoBehaviour
 
     private void Generate(GameObject pref, int i, int j)
     {
-        Instantiate(pref,
+       Instantiate(pref,
                 (new Vector3(
                     leftTopMax.transform.position.x + 0.2f + ((rightBottom.transform.position.x - leftTopMax.transform.position.x) / 4 * j),
                     leftTopMax.transform.position.y + 0.2f + ((rightBottom.transform.position.y - leftTopMax.transform.position.y) / 4 * i))),
@@ -86,7 +86,7 @@ public class Generator : MonoBehaviour
     private void DragObj(float x, float y)
     {
         if (CheckBorders(x, y))
-        {           
+        {
             var mas = FindCoordinate(x, y);
         }
     }
@@ -104,21 +104,47 @@ public class Generator : MonoBehaviour
     public int[] FindCoordinate(float x, float y)
     {
         Debug.Log("Find cord");
-        var _x = x/(leftTopMax.transform.position.x + 0.2f +
-            (rightBottom.transform.position.x - leftTopMax.transform.position.x)/4)-1;
- 
+        //var _x = x/(leftTopMax.transform.position.x + 0.2f +
+        //     (rightBottom.transform.position.x - leftTopMax.transform.position.x)/4)-1;
 
-        Debug.Log(x);
-        return new int[] {0, 1};                   
+        var e = new Coordinate(0, 0, leftTopMax, rightBottom);
+        Instantiate(grey_one, new Vector3(e.X, e.Y, 0), Quaternion.identity);
+        //Debug.Log(x);
+        return new int[] { 0, 1 };
     }
 
-    public int[] IndexToPosition(int x, int y)
+    /*public Coordinate IndexToPosition(int x, int y)
     {
-        return new int[2];
+        return new Coordinate { X=0, Y=0};
     }
 
-    public int[] PositionToIndex(float x, float y)
+    public Index PositionToIndex(float x, float y)
     {
-        return new int[2];
-    }
+        return new Index { X = 0, Y=0};
+    }*/
+
 }
+
+    public class Coordinate
+    {
+        public float X;
+        public float Y;
+
+        /// <summary>
+        /// Index to Position
+        /// </summary>
+        public Coordinate(int x, int y, GameObject lt, GameObject rb)
+        {
+            X = lt.transform.position.x + 0.2f + (rb.transform.position.x - lt.transform.position.x) / 4 * x;
+            Y = lt.transform.position.y + 0.2f + (rb.transform.position.y - lt.transform.position.y) / 4 * y;
+
+            //Debug.Log(X + " " + Y);
+        }
+    }
+
+    public class Index
+    {
+        public int X;
+        public int Y;
+    }
+

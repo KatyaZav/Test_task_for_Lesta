@@ -68,19 +68,15 @@ public class Generator : MonoBehaviour
                     }
                 }
             }
-
-
     }
 
     private void Generate(GameObject pref, int i, int j)
     {
-       Instantiate(pref,
-                (new Vector3(
-                    leftTopMax.transform.position.x + 0.2f + ((rightBottom.transform.position.x - leftTopMax.transform.position.x) / 4 * j),
-                    leftTopMax.transform.position.y + 0.2f + ((rightBottom.transform.position.y - leftTopMax.transform.position.y) / 4 * i))),
+       var e = Instantiate(pref,
+                (new Vector3(new Coordinate(i, j, leftTopMax, rightBottom).X, new Coordinate(i, j, leftTopMax, rightBottom).Y)),
                 Quaternion.identity);
 
-        Matrix.Create(i, j, pref);
+        Matrix.Create(i, j, e);
     }
 
     private void DragObj(float x, float y)
@@ -103,15 +99,6 @@ public class Generator : MonoBehaviour
 
     public int[] FindCoordinate(float x, float y)
     {
-        Debug.Log("Find cord");
-        //var _x = x/(leftTopMax.transform.position.x + 0.2f +
-        //     (rightBottom.transform.position.x - leftTopMax.transform.position.x)/4)-1;
-
-        var e = new Index(x, y, leftTopMax, rightBottom);
-        Debug.Log(e.X + " " + e.Y);
-
-        //Instantiate(grey_one, new Vector3(e.X, e.Y, 0), Quaternion.identity);
-        //Debug.Log(x);
         return new int[] { 0, 1 };
     } 
 }
@@ -126,8 +113,8 @@ public class Generator : MonoBehaviour
         /// </summary>
         public Coordinate(int x, int y, GameObject lt, GameObject rb)
         {
-            X = lt.transform.position.x + 0.2f + (rb.transform.position.x - lt.transform.position.x) / 4 * x;
-            Y = lt.transform.position.y + 0.2f + (rb.transform.position.y - lt.transform.position.y) / 4 * y;
+            X = lt.transform.position.x + 0.2f + (rb.transform.position.x - lt.transform.position.x) / 4 * y;
+            Y = lt.transform.position.y + 0.2f + (rb.transform.position.y - lt.transform.position.y) / 4 * x;
 
             //Debug.Log(X + " " + Y);
         }

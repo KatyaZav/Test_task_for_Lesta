@@ -84,8 +84,11 @@ public class Generator : MonoBehaviour
         if (CheckBorders(x, y))
         {
             DeleteSteps();
-
             var e = new Index(x, y, leftTopMax, rightBottom);
+
+            var cords = new Coordinate(e.X, e.Y, leftTopMax, rightBottom);
+            Instantiate(nextStep, new Vector3(cords.X, cords.Y, 0), Quaternion.identity);
+                        
             var steps = Matrix.GenerateSteps(e.X, e.Y);
 
             foreach(var step in steps)

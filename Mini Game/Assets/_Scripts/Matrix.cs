@@ -51,15 +51,15 @@ public static class Matrix
 
             if (Orange && Green && Blue)
             {
-                WinNow?.Invoke();
-                Win();
                 Manager.Reload();
+                //WinNow?.Invoke();
+                Win();
             }
             
         }
         catch (System.Exception e)  { }
 
-        Debug.Log(Blue + " " + Orange + " " + Green);
+        //Debug.Log(Blue + " " + Orange + " " + Green);
     }
 
     private static void Win()

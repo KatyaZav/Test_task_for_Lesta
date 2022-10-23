@@ -95,6 +95,8 @@ public class Generator : MonoBehaviour
 
     private void DragObj(float x, float y, GameObject gm)
     {
+        Matrix.checkIsWin();
+
         if (CheckBorders(x, y))
         {        
             DeleteSteps();

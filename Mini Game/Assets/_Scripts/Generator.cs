@@ -118,7 +118,8 @@ public class Generator : MonoBehaviour
                     var e = step.I * 5 + step.J;
                     var pos = AllElements[e].transform.position;
 
-                    Instantiate(nextStep, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+                    var st = Instantiate(nextStep, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+                    st.name = String.Format("{0}{1}", step.I, step.J);
                 }
             }
             else Debug.LogWarning("Index not gets");
@@ -126,43 +127,25 @@ public class Generator : MonoBehaviour
         }
     }
 
-    private Index GetIndex(float x, float y)
-    {        
-        for (int i=0; i<25; i++)
-        {
-            if ((int)(AllElements[i].transform.position.x) == Mathf.Ceil(x) && (int)(AllElements[i].transform.position.y) == Mathf.Ceil(y)) 
-            {
-                var first = i / 5;
-                return new Index(first, i - first * 5);
-            }
-        }
-            /*for (int j=0; j<5; j++)
-        {
-            if(Matrix.obj[i,j]!= null)
-                if ((int)(Matrix.obj[i,j].transform.position.x) == (int)x && (int)Matrix.obj[i, j].transform.position.y == (int)y)
-                {
-                        return new Index(i, j);
-                }}*/
-        
-
-        return new Index(-1, -1);
-    }
-
-    private void DropObj(float x, float y)
+   
+    private void DropObj(float x, float y, GameObject gm)
     {
-        var stepIndex = GetIndex(x, y);
+        int cord = Int32.Parse(gm.name);
+        int _x = cord / 10;
+        int _y = cord % 10;
 
-        if (stepIndex.I != -1)
+        if (-x != -1)
         {
-            Debug.Log(stepIndex.I + " " + stepIndex.J);
+            //Debug.Log(stepIndex.I + " " + stepIndex.J);
 
-            Matrix.obj[stepIndex.I, stepIndex.J] = Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J];
+            Matrix.obj[_x, _y] = Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J];
             Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J] = null;
+            Matrix.obj[_x, _y].name = string.Format("{0}{1}", _x, _y);
 
             Matrix.ChoosedCircle = null;
 
             //var stepCoord = new Coordinate(stepIndex.I, stepIndex.J, leftTopMax, rightBottom);
-            Matrix.obj[stepIndex.I, stepIndex.J].transform.position = new Vector3(x, y, 0);
+            Matrix.obj[_x, _y].transform.position = new Vector3(x, y, 0);
         }
         else Debug.LogWarning("Step not in borders.");
         

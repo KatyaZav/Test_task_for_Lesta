@@ -5,7 +5,7 @@ using System;
 
 public class Drop : MonoBehaviour
 {
-    public static Action<float, float> Droping;
+    public static Action<float, float, GameObject> Droping;
     private void OnMouseDown()
     {
         /*var position = Input.mousePosition;
@@ -14,6 +14,6 @@ public class Drop : MonoBehaviour
         
         var Pose = transform.position;
 
-        Droping?.Invoke(Pose.x, Pose.y);
+        Droping?.Invoke(Pose.x, Pose.y, gameObject);
     }
 }

@@ -15,6 +15,7 @@ public static class Matrix
 
     public static List<Index> GenerateSteps(int i, int j)
     {
+        Debug.Log(i + " " + j);
         List<Index> ans = new List<Index>();
 
         if (i >= 1 && obj[i - 1, j] == null)

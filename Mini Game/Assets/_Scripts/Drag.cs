@@ -5,7 +5,7 @@ using System;
 
 public class Drag : MonoBehaviour
 {
-    public static Action<float, float> Draging; 
+    public static Action<float, float, GameObject> Draging; 
 
     private void OnMouseDown()
     {
@@ -16,6 +16,6 @@ public class Drag : MonoBehaviour
         var Pose = transform.position;
         //Debug.Log(Pose.x + " " + Pose.y);
 
-        Draging?.Invoke(Pose.x, Pose.y);
+        Draging?.Invoke(Pose.x, Pose.y, gameObject);
     }
 }

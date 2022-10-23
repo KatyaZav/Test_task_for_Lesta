@@ -73,7 +73,7 @@ public class Generator : MonoBehaviour
                 }
             }
 
-        DebugLog();
+        //DebugLog();
     }
 
     private void Generate(GameObject pref, int i, int j)
@@ -90,6 +90,7 @@ public class Generator : MonoBehaviour
         Matrix.Create(i, j, _object);
     }
 
+
     private void DragObj(float x, float y)
     {
         if (CheckBorders(x, y))
@@ -97,6 +98,7 @@ public class Generator : MonoBehaviour
             DeleteSteps();
 
             Instantiate(nextStep, new Vector3(x, y, 0), Quaternion.identity);
+            
             var choosedPos = GetIndex(x, y);
             Matrix.ChoosedCircle = choosedPos;
 
@@ -117,10 +119,12 @@ public class Generator : MonoBehaviour
         for (int i=0; i<5; i++)
             for (int j=0; j<5; j++)
         {
-            if ((int)(Matrix.obj[i,j].transform.position.x) == (int)x && (int)Matrix.obj[i, j].transform.position.y == (int)y)
-            {
-                    return new Index(i, j);
-            }
+                //Debug.Log(i + " " + j);
+            if(Matrix.obj[i,j]!= null)
+                if ((int)(Matrix.obj[i,j].transform.position.x) == (int)x && (int)Matrix.obj[i, j].transform.position.y == (int)y)
+                {
+                        return new Index(i, j);
+                }
         }
 
         return new Index(-1, -1);

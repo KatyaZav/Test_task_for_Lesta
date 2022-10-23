@@ -11,7 +11,14 @@ public class Manager : MonoBehaviour
     }
     public void Reload()
     {
-        //Matrix.obj = new GameObject[5, 5];
-        SceneManager.LoadScene(0);
+        foreach(var e in Matrix.obj)
+        {
+            Destroy(e);
+        }
+
+        Matrix.obj = new GameObject[5, 5];
+        GameObject.FindGameObjectWithTag("Generator").GetComponent<Generator>().Start();
+        
+       // SceneManager.LoadScene(0);
     }
 }

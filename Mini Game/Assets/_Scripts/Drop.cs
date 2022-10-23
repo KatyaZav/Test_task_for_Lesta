@@ -8,9 +8,11 @@ public class Drop : MonoBehaviour
     public static Action<float, float> Droping;
     private void OnMouseDown()
     {
-        var position = Input.mousePosition;
+        /*var position = Input.mousePosition;
         position.z = Camera.main.nearClipPlane + 1;
-        var Pose = Camera.main.ScreenToWorldPoint(position);
+        var Pose = Camera.main.ScreenToWorldPoint(position);*/
+        
+        var Pose = transform.position;
 
         Droping?.Invoke(Pose.x, Pose.y);
     }

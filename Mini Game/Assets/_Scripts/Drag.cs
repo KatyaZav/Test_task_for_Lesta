@@ -14,7 +14,7 @@ public class Drag : MonoBehaviour
         var Pose = Camera.main.ScreenToWorldPoint(position);*/
 
         var Pose = transform.position;
-        Debug.Log(Pose.x + " " + Pose.y);
+        //Debug.Log(Pose.x + " " + Pose.y);
 
         Draging?.Invoke(Pose.x, Pose.y);
     }

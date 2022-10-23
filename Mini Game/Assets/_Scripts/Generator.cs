@@ -16,7 +16,8 @@ public class Generator : MonoBehaviour
 
     [SerializeField] GameObject nextStep;
 
-    private void Start()
+
+    public void Start()
     {
         Drag.Draging += DragObj;
         Drop.Droping += DropObj;
@@ -72,14 +73,15 @@ public class Generator : MonoBehaviour
                 }
             }
 
-        //DebugLog();
+        DebugLog();
     }
 
     private void Generate(GameObject pref, int i, int j)
     {
-        var e = i * 4 + j;
-
+        var e = i * 5 + j;
         var _obj = AllElements[e].transform.position;
+
+        //Debug.Log(i + " " + j + " " + pref +" "+e);
 
         var _object = Instantiate(pref,
                 new Vector3(_obj.x, _obj.y, 0),
@@ -88,38 +90,40 @@ public class Generator : MonoBehaviour
         Matrix.Create(i, j, _object);
     }
 
-
-
-/*    private void Generate(GameObject pref, int i, int j)
-    {
-       var e = Instantiate(pref,
-                (new Vector3(new Coordinate(i, j, leftTopMax, rightBottom).X, new Coordinate(i, j, leftTopMax, rightBottom).Y)),
-                Quaternion.identity);
-
-        Matrix.Create(i, j, e);
-    }*/
-
     private void DragObj(float x, float y)
     {
         if (CheckBorders(x, y))
         {        
             DeleteSteps();
 
-            var e = new Index(x, y, leftTopMax, rightBottom);
-            Matrix.ChoosedCircle = e;
+            Instantiate(nextStep, new Vector3(x, y, 0), Quaternion.identity);
+            var choosedPos = GetIndex(x, y);
+            Matrix.ChoosedCircle = choosedPos;
 
-            var cords = new Coordinate(e.I, e.J, leftTopMax, rightBottom);
-            Instantiate(nextStep, new Vector3(cords.X, cords.Y, 0), Quaternion.identity);
-                        
-            var steps = Matrix.GenerateSteps(e.I, e.J);
-
+            var steps = Matrix.GenerateSteps(choosedPos.I, choosedPos.J);
+    
             foreach(var step in steps)
             {
-                var pos = new Coordinate(step.I, step.J, leftTopMax, rightBottom);
+                var e = step.I * 5 + step.J;
+                var pos = AllElements[e].transform.position;
 
-                Instantiate(nextStep, new Vector3(pos.X, pos.Y, 0), Quaternion.identity);
+                Instantiate(nextStep, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
             }
         }
+    }
+
+    private Index GetIndex(float x, float y)
+    {        
+        for (int i=0; i<5; i++)
+            for (int j=0; j<5; j++)
+        {
+            if ((int)(Matrix.obj[i,j].transform.position.x) == (int)x && (int)Matrix.obj[i, j].transform.position.y == (int)y)
+            {
+                    return new Index(i, j);
+            }
+        }
+
+        return new Index(-1, -1);
     }
 
     private void DropObj(float x, float y)

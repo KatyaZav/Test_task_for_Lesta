@@ -193,12 +193,11 @@ public class Generator : MonoBehaviour
         /// <summary>
         /// Index to Position
         /// </summary>
-        public Coordinate(int x, int y, GameObject lt, GameObject rb)
+        public Coordinate(int i, int j, GameObject lt, GameObject rb)
         {
-            X = lt.transform.position.x + 0.2f + (rb.transform.position.x - lt.transform.position.x) / 4 * y;
-            Y = lt.transform.position.y + 0.2f + (rb.transform.position.y - lt.transform.position.y) / 4 * x;
-
-            //Debug.Log(X + " " + Y);
+            
+            X = lt.transform.position.x + ((rb.transform.position.x - lt.transform.position.x) / 5) * (j+0.5f);
+            Y = lt.transform.position.y + ((rb.transform.position.y - lt.transform.position.y) / 5) * (i+0.5f);
         }
 
         public Coordinate(float x, float y)
@@ -220,7 +219,7 @@ public class Generator : MonoBehaviour
         {
             Y = Mathf.Abs((int)((lt.transform.position.x - x)/((rb.transform.position.x - 0.5f - lt.transform.position.x) / 4)));
             
-            X = Mathf.Abs((int)((lt.transform.position.y - y) / ((lt.transform.position.y - 1f - rb.transform.position.y) / 4)));
+            X = Mathf.Abs((int)((lt.transform.position.y - y ) / ((lt.transform.position.y - 1f - rb.transform.position.y) / 4)));
         }
 
         public Index(int x, int y)

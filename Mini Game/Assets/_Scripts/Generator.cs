@@ -119,7 +119,7 @@ public class Generator : MonoBehaviour
         for (int i=0; i<5; i++)
             for (int j=0; j<5; j++)
         {
-                //Debug.Log(i + " " + j);
+               Debug.Log(i + " " + j);
             if(Matrix.obj[i,j]!= null)
                 if ((int)(Matrix.obj[i,j].transform.position.x) == (int)x && (int)Matrix.obj[i, j].transform.position.y == (int)y)
                 {
@@ -132,15 +132,15 @@ public class Generator : MonoBehaviour
 
     private void DropObj(float x, float y)
     {
-        var stepIndex = new Index(x, y, leftTopMax, rightBottom);
+        var stepIndex = GetIndex(x, y);
 
         Matrix.obj[stepIndex.I, stepIndex.J] = Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J];
         Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J] = null;
 
         Matrix.ChoosedCircle = null;
 
-        var stepCoord = new Coordinate(stepIndex.I, stepIndex.J, leftTopMax, rightBottom);
-        Matrix.obj[stepIndex.I, stepIndex.J].transform.position = new Vector3(stepCoord.X, stepCoord.Y, 0);
+        //var stepCoord = new Coordinate(stepIndex.I, stepIndex.J, leftTopMax, rightBottom);
+        Matrix.obj[stepIndex.I, stepIndex.J].transform.position = new Vector3(x, y, 0);
 
         DeleteSteps();
         //DebugLog();
@@ -191,7 +191,7 @@ public class Generator : MonoBehaviour
         }
     }
 
-    private static void DeleteSteps()
+    public static void DeleteSteps()
     {
         var steps = GameObject.FindGameObjectsWithTag("Step");
 

@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     }
     public void Reload()
     {
+        Generator.DeleteSteps();
         foreach(var e in Matrix.obj)
         {
             Destroy(e);

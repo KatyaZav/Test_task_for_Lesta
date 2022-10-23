@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     }
     public void Reload()
     {
+        Matrix.obj = new GameObject[5, 5];
         SceneManager.LoadScene(0);
     }
 }

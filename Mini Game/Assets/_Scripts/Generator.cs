@@ -17,6 +17,7 @@ public class Generator : MonoBehaviour
     private void Start()
     {
         Drag.Draging += DragObj;
+        Drop.Droping += DropObj;
 
         var zero = 4;
         var green = 5;
@@ -68,6 +69,8 @@ public class Generator : MonoBehaviour
                     }
                 }
             }
+
+        DebugLog();
     }
 
     private void Generate(GameObject pref, int i, int j)
@@ -82,9 +85,11 @@ public class Generator : MonoBehaviour
     private void DragObj(float x, float y)
     {
         if (CheckBorders(x, y))
-        {
+        {          
+
             DeleteSteps();
             var e = new Index(x, y, leftTopMax, rightBottom);
+            Matrix.ChoosedCircle = e;
 
             var cords = new Coordinate(e.X, e.Y, leftTopMax, rightBottom);
             Instantiate(nextStep, new Vector3(cords.X, cords.Y, 0), Quaternion.identity);
@@ -96,8 +101,56 @@ public class Generator : MonoBehaviour
                 var pos = new Coordinate(step.X, step.Y, leftTopMax, rightBottom);
 
                 Instantiate(nextStep, new Vector3(pos.X, pos.Y, 0), Quaternion.identity);
-                Debug.Log(step.ToString());
             }
+        }
+    }
+
+    private void DropObj(float x, float y)
+    {
+        var stepIndex = new Index(x, y, leftTopMax, rightBottom);
+
+        Matrix.obj[stepIndex.X, stepIndex.Y] = Matrix.obj[Matrix.ChoosedCircle.X, Matrix.ChoosedCircle.Y];
+        Matrix.obj[Matrix.ChoosedCircle.X, Matrix.ChoosedCircle.Y] = null;
+
+        Matrix.ChoosedCircle = null;
+
+        var stepCoord = new Coordinate(stepIndex.X, stepIndex.Y, leftTopMax, rightBottom);
+        Matrix.obj[stepIndex.X, stepIndex.Y].transform.position = new Vector3(stepCoord.X, stepCoord.Y, 0);
+
+        DeleteSteps();
+    }
+
+    public void DebugLog()
+    {
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+            GetName(Matrix.obj[0,0]), GetName(Matrix.obj[0, 1]), GetName(Matrix.obj[0, 2]), GetName(Matrix.obj[0, 3]), GetName(Matrix.obj[0, 4])));
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           Matrix.obj[1, 0], Matrix.obj[1, 1], Matrix.obj[1, 2], Matrix.obj[1, 3], Matrix.obj[1, 4]));
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           Matrix.obj[2, 0], Matrix.obj[2, 1], Matrix.obj[2, 2], Matrix.obj[2, 3], Matrix.obj[2, 4]));
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           Matrix.obj[3, 0], Matrix.obj[3, 1], Matrix.obj[3, 2], Matrix.obj[3, 3], Matrix.obj[3, 4]));
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           Matrix.obj[4, 0], Matrix.obj[4, 1], Matrix.obj[4, 2], Matrix.obj[4, 3], Matrix.obj[4, 4]));
+
+        Debug.Log("X: "+Matrix.ChoosedCircle.X + " Y: "+ Matrix.ChoosedCircle.Y);
+
+        string GetName(GameObject obj)
+        {
+            if (obj.ToString() == "Green_Circle(Clone) (UnityEngine.GameObject)")
+                return "green";
+
+            if (obj.ToString() == "Grey_Circle Variant(Clone) (UnityEngine.GameObject)")
+                return "grey";
+
+            if (obj.ToString() == "Blue_Circle Variant(Clone) (UnityEngine.GameObject)")
+                return "blue";
+
+            if (obj.ToString() == "Orange_Circle Variant(Clone)")
+                return "orange";
+
+            return "null";
+
         }
     }
 

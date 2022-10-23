@@ -150,7 +150,7 @@ public class Generator : MonoBehaviour
         else Debug.LogWarning("Step not in borders.");
         
         DeleteSteps();
-        DebugLog();
+       // DebugLog();
     }
 
     public static void DebugLog()

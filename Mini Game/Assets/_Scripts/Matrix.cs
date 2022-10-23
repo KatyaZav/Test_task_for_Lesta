@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public static class Matrix
 {
@@ -31,5 +32,38 @@ public static class Matrix
             ans.Add(new Index(i, j+1));
 
         return ans;
-    } 
+    }
+
+    public static Action WinNow;
+    public static void checkIsWin()
+    {      
+        bool Blue = false, Orange=false, Green = false;
+        try
+        {
+            
+            if ((obj[0, 0].tag == "blue" && obj[1, 0].tag == "blue" && obj[2, 0].tag == "blue" && obj[3, 0].tag == "blue" && obj[4, 0].tag == "blue"))
+                Blue = true;
+
+            if (obj[0, 2].tag == "green" && obj[1, 2].tag == "green" && obj[2, 2].tag == "green" && obj[3, 2].tag == "green" && obj[4, 2].tag == "green")
+                Green = true;
+            if (obj[0, 4].tag == "orange" && obj[1, 4].tag == "orange" && obj[2, 4].tag == "orange" && obj[3, 4].tag == "orange" && obj[4, 4].tag == "orange")
+                Orange = true;
+
+            if (Orange && Green && Blue)
+            {
+                WinNow?.Invoke();
+                Win();
+                Manager.Reload();
+            }
+            
+        }
+        catch (System.Exception e)  { }
+
+        Debug.Log(Blue + " " + Orange + " " + Green);
+    }
+
+    private static void Win()
+    {        
+        Debug.Log("Win!");
+    }
 }

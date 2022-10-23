@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Step
   - Generator
+  - blue
+  - green
+  - orange
+  - WinMenu
   layers:
   - Default
   - TransparentFX
@@ -45,4 +49,7 @@ TagManager:
     locked: 0
   - name: Game_things
     uniqueID: 415486261
+    locked: 0
+  - name: UI
+    uniqueID: 3647722051
     locked: 0

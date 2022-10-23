@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
+    [SerializeField]GameObject menu;
     private void Start()
     {
-        //DontDestroyOnLoad(this);
+        //menu.SetActive(true);
+
+        //Matrix.WinNow += MakeWin;
     }
-    public void Reload()
+    public static void Reload()
     {
+        //menu.SetActive(false);
+        
         Generator.DeleteSteps();
         foreach(var e in Matrix.obj)
         {
@@ -19,7 +24,13 @@ public class Manager : MonoBehaviour
 
         Matrix.obj = new GameObject[5, 5];
         GameObject.FindGameObjectWithTag("Generator").GetComponent<Generator>().Start();
-        
-       // SceneManager.LoadScene(0);
+
+        // SceneManager.LoadScene(0);
     }
+
+    void MakeWin()
+    {
+        menu.SetActive(true);
+    }
+
 }

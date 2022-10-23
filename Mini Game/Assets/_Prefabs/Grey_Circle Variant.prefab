@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grey_Circle Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 937169909024089952, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 937169909024089966, guid: b15ee0e669d9fe240a6265b896bb845b, type: 3}
       propertyPath: m_RootOrder
       value: 0

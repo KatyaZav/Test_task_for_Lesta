@@ -105,24 +105,27 @@ public class Generator : MonoBehaviour
             int _x = cord / 10;
             int _y = cord % 10;
 
-            //var choosedPos = GetIndex(x, y);
-
-            if (x != -1)
+            if (Matrix.ChoosedCircle != new Index(_x, _y))
             {
-                Matrix.ChoosedCircle = new Index(_x, _y);//choosedPos;
+                //var choosedPos = GetIndex(x, y);
 
-                var steps = Matrix.GenerateSteps(_x, _y);//choosedPos.I, choosedPos.J);
-
-                foreach (var step in steps)
+                if (x != -1)
                 {
-                    var e = step.I * 5 + step.J;
-                    var pos = AllElements[e].transform.position;
+                    Matrix.ChoosedCircle = new Index(_x, _y);//choosedPos;
 
-                    var st = Instantiate(nextStep, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
-                    st.name = String.Format("{0}{1}", step.I, step.J);
+                    var steps = Matrix.GenerateSteps(_x, _y);//choosedPos.I, choosedPos.J);
+
+                    foreach (var step in steps)
+                    {
+                        var e = step.I * 5 + step.J;
+                        var pos = AllElements[e].transform.position;
+
+                        var st = Instantiate(nextStep, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+                        st.name = String.Format("{0}{1}", step.I, step.J);
+                    }
                 }
+                else Debug.LogWarning("Index not gets");
             }
-            else Debug.LogWarning("Index not gets");
             
         }
     }
@@ -148,8 +151,9 @@ public class Generator : MonoBehaviour
             Matrix.obj[_x, _y].transform.position = new Vector3(x, y, 0);
         }
         else Debug.LogWarning("Step not in borders.");
-        
+
         DeleteSteps();
+        Matrix.checkIsWin();
        // DebugLog();
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+    public GameObject[] AllElements = new GameObject[5];
+
     [SerializeField] GameObject rightBottom;
     [SerializeField] GameObject leftTopMax;
 
@@ -75,30 +77,45 @@ public class Generator : MonoBehaviour
 
     private void Generate(GameObject pref, int i, int j)
     {
+        var e = i * 4 + j;
+
+        var _obj = AllElements[e].transform.position;
+
+        var _object = Instantiate(pref,
+                new Vector3(_obj.x, _obj.y, 0),
+                Quaternion.identity);
+
+        Matrix.Create(i, j, _object);
+    }
+
+
+
+/*    private void Generate(GameObject pref, int i, int j)
+    {
        var e = Instantiate(pref,
                 (new Vector3(new Coordinate(i, j, leftTopMax, rightBottom).X, new Coordinate(i, j, leftTopMax, rightBottom).Y)),
                 Quaternion.identity);
 
         Matrix.Create(i, j, e);
-    }
+    }*/
 
     private void DragObj(float x, float y)
     {
         if (CheckBorders(x, y))
-        {          
-
+        {        
             DeleteSteps();
+
             var e = new Index(x, y, leftTopMax, rightBottom);
             Matrix.ChoosedCircle = e;
 
-            var cords = new Coordinate(e.X, e.Y, leftTopMax, rightBottom);
+            var cords = new Coordinate(e.I, e.J, leftTopMax, rightBottom);
             Instantiate(nextStep, new Vector3(cords.X, cords.Y, 0), Quaternion.identity);
                         
-            var steps = Matrix.GenerateSteps(e.X, e.Y);
+            var steps = Matrix.GenerateSteps(e.I, e.J);
 
             foreach(var step in steps)
             {
-                var pos = new Coordinate(step.X, step.Y, leftTopMax, rightBottom);
+                var pos = new Coordinate(step.I, step.J, leftTopMax, rightBottom);
 
                 Instantiate(nextStep, new Vector3(pos.X, pos.Y, 0), Quaternion.identity);
             }
@@ -109,16 +126,16 @@ public class Generator : MonoBehaviour
     {
         var stepIndex = new Index(x, y, leftTopMax, rightBottom);
 
-        Matrix.obj[stepIndex.X, stepIndex.Y] = Matrix.obj[Matrix.ChoosedCircle.X, Matrix.ChoosedCircle.Y];
-        Matrix.obj[Matrix.ChoosedCircle.X, Matrix.ChoosedCircle.Y] = null;
+        Matrix.obj[stepIndex.I, stepIndex.J] = Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J];
+        Matrix.obj[Matrix.ChoosedCircle.I, Matrix.ChoosedCircle.J] = null;
 
         Matrix.ChoosedCircle = null;
 
-        var stepCoord = new Coordinate(stepIndex.X, stepIndex.Y, leftTopMax, rightBottom);
-        Matrix.obj[stepIndex.X, stepIndex.Y].transform.position = new Vector3(stepCoord.X, stepCoord.Y, 0);
+        var stepCoord = new Coordinate(stepIndex.I, stepIndex.J, leftTopMax, rightBottom);
+        Matrix.obj[stepIndex.I, stepIndex.J].transform.position = new Vector3(stepCoord.X, stepCoord.Y, 0);
 
         DeleteSteps();
-        DebugLog();
+        //DebugLog();
     }
 
     public static void DebugLog()
@@ -140,7 +157,7 @@ public class Generator : MonoBehaviour
            GetName(Matrix.obj[4, 0]), GetName(Matrix.obj[4, 1]), GetName(Matrix.obj[4, 2]), GetName(Matrix.obj[4, 3]), GetName(Matrix.obj[4, 4])));
 
         if (Matrix.ChoosedCircle != null)
-            Debug.Log("X: " + Matrix.ChoosedCircle.X + " Y: " + Matrix.ChoosedCircle.Y);
+            Debug.Log("X: " + Matrix.ChoosedCircle.I + " Y: " + Matrix.ChoosedCircle.J);
         else Debug.Log("null");
         Debug.Log("___________________");
 
@@ -209,23 +226,28 @@ public class Generator : MonoBehaviour
 
     public class Index
     {
-        public int X;
-        public int Y;
+        public int I;
+        public int J;
 
         /// <summary>
         /// Position to Index
         /// </summary>
         public Index(float x, float y, GameObject lt, GameObject rb)
         {
-            Y = Mathf.Abs((int)((lt.transform.position.x - x)/((rb.transform.position.x - 0.5f - lt.transform.position.x) / 4)));
+            J = (int)((x / ((rb.transform.position.x - lt.transform.position.x) / 5) - 0.5f) - 1);
+            //(int)Mathf.Ceil(((x - lt.transform.position.x) / ((rb.transform.position.x - lt.transform.position.x) / 5))) - 1;
             
-            X = Mathf.Abs((int)((lt.transform.position.y - y ) / ((lt.transform.position.y - 1f - rb.transform.position.y) / 4)));
+            I = (int)((y / ((rb.transform.position.y - lt.transform.position.y) / 5) - 0.5f) - 1);
+        //(int)Mathf.Ceil(((x - lt.transform.position.x) / ((rb.transform.position.x - lt.transform.position.x) / 5))) - 1;
+
+        Debug.Log(I + " " + J);
         }
 
         public Index(int x, int y)
         {
-            X = x;
-            Y = y;
+            I = x;
+            J = y;
         }
     }
+
 

@@ -70,7 +70,7 @@ public class Generator : MonoBehaviour
                 }
             }
 
-        DebugLog();
+        //DebugLog();
     }
 
     private void Generate(GameObject pref, int i, int j)
@@ -118,25 +118,37 @@ public class Generator : MonoBehaviour
         Matrix.obj[stepIndex.X, stepIndex.Y].transform.position = new Vector3(stepCoord.X, stepCoord.Y, 0);
 
         DeleteSteps();
+        DebugLog();
     }
 
-    public void DebugLog()
+    public static void DebugLog()
     {
+        Debug.Log("___________________");
         Debug.Log(string.Format("{0} {1} {2} {3} {4}",
             GetName(Matrix.obj[0,0]), GetName(Matrix.obj[0, 1]), GetName(Matrix.obj[0, 2]), GetName(Matrix.obj[0, 3]), GetName(Matrix.obj[0, 4])));
-        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
-           Matrix.obj[1, 0], Matrix.obj[1, 1], Matrix.obj[1, 2], Matrix.obj[1, 3], Matrix.obj[1, 4]));
-        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
-           Matrix.obj[2, 0], Matrix.obj[2, 1], Matrix.obj[2, 2], Matrix.obj[2, 3], Matrix.obj[2, 4]));
-        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
-           Matrix.obj[3, 0], Matrix.obj[3, 1], Matrix.obj[3, 2], Matrix.obj[3, 3], Matrix.obj[3, 4]));
-        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
-           Matrix.obj[4, 0], Matrix.obj[4, 1], Matrix.obj[4, 2], Matrix.obj[4, 3], Matrix.obj[4, 4]));
 
-        Debug.Log("X: "+Matrix.ChoosedCircle.X + " Y: "+ Matrix.ChoosedCircle.Y);
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+            GetName(Matrix.obj[1, 0]), GetName(Matrix.obj[1, 1]), GetName(Matrix.obj[1, 2]), GetName(Matrix.obj[1, 3]), GetName(Matrix.obj[1, 4])));
+
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           GetName(Matrix.obj[2, 0]), GetName(Matrix.obj[2, 1]), GetName(Matrix.obj[2, 2]), GetName(Matrix.obj[2, 3]), GetName(Matrix.obj[2, 4])));
+
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           GetName(Matrix.obj[3, 0]), GetName(Matrix.obj[3, 1]), GetName(Matrix.obj[3, 2]), GetName(Matrix.obj[3, 3]), GetName(Matrix.obj[3, 4])));
+
+        Debug.Log(string.Format("{0} {1} {2} {3} {4}",
+           GetName(Matrix.obj[4, 0]), GetName(Matrix.obj[4, 1]), GetName(Matrix.obj[4, 2]), GetName(Matrix.obj[4, 3]), GetName(Matrix.obj[4, 4])));
+
+        if (Matrix.ChoosedCircle != null)
+            Debug.Log("X: " + Matrix.ChoosedCircle.X + " Y: " + Matrix.ChoosedCircle.Y);
+        else Debug.Log("null");
+        Debug.Log("___________________");
 
         string GetName(GameObject obj)
         {
+            if (obj == null)
+                return "null";
+
             if (obj.ToString() == "Green_Circle(Clone) (UnityEngine.GameObject)")
                 return "green";
 
@@ -146,7 +158,7 @@ public class Generator : MonoBehaviour
             if (obj.ToString() == "Blue_Circle Variant(Clone) (UnityEngine.GameObject)")
                 return "blue";
 
-            if (obj.ToString() == "Orange_Circle Variant(Clone)")
+            if (obj.ToString() == "Orange_Circle Variant(Clone) (UnityEngine.GameObject)")
                 return "orange";
 
             return "null";
